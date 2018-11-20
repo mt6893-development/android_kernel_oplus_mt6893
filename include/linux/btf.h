@@ -56,5 +56,18 @@ int btf_find_spin_lock(const struct btf *btf, const struct btf_type *t);
 #ifdef CONFIG_BPF_SYSCALL
 const struct btf_type *btf_type_by_id(const struct btf *btf, u32 type_id);
 const char *btf_name_by_offset(const struct btf *btf, u32 offset);
+#else
+static inline const struct btf_type *btf_type_by_id(const struct btf *btf,
+						    u32 type_id)
+{
+	return NULL;
+}
+
+static inline const char *btf_name_by_offset(const struct btf *btf,
+					     u32 offset)
+{
+	return NULL;
+}
+#endif
 
 #endif
