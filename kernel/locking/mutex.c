@@ -1113,7 +1113,7 @@ err_early_kill:
 #endif
 	spin_unlock(&lock->wait_lock);
 	debug_mutex_free_waiter(&waiter);
-	mutex_release(&lock->dep_map, 1, ip);
+	mutex_release(&lock->dep_map, ip);
 	preempt_enable();
 	return ret;
 }
@@ -1250,7 +1250,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 	bool next_is_ux = false;
 #endif
 
-	mutex_release(&lock->dep_map, 1, ip);
+	mutex_release(&lock->dep_map, ip);
 
 	/*
 	 * Release the lock before (potentially) taking the spinlock such that
