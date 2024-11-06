@@ -79,11 +79,8 @@ enum {
 
 static inline bool rwb_enabled(struct rq_wb *rwb)
 {
-#if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_OPLUS_FEATURE_UXIO_FIRST)
-	return sysctl_wbt_enable && rwb && rwb->enable_state != WBT_STATE_OFF_DEFAULT && rwb->wb_normal != 0;
-#else
-	return rwb && rwb->enable_state != WBT_STATE_OFF_DEFAULT && rwb->wb_normal != 0;
-#endif
+	return rwb && rwb->enable_state != WBT_STATE_OFF_DEFAULT &&
+		      rwb->wb_normal != 0;
 }
 
 static void wb_timestamp(struct rq_wb *rwb, unsigned long *var)

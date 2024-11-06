@@ -82,11 +82,6 @@ static int depot_index;
 static int next_slab_inited;
 static size_t depot_offset;
 static DEFINE_RAW_SPINLOCK(depot_lock);
-#ifdef CONFIG_PAGE_OWNER
-static struct stack_record *max_found;
-static DEFINE_SPINLOCK(max_found_lock);
-#endif
-
 
 static bool init_stack_slab(void **prealloc)
 {
@@ -304,10 +299,10 @@ depot_stack_handle_t depot_save_stack(struct stack_trace *trace,
 		/*
 		 * Zero out zone modifiers, as we don't have specific zone
 		 * requirements. Keep the flags related to allocation in atomic
-		 * contexts and I/O.
+		 * contexts, I/O, nolockdep.
 		 */
 		alloc_flags &= ~GFP_ZONEMASK;
-		alloc_flags &= (GFP_ATOMIC | GFP_KERNEL);
+		alloc_flags &= (GFP_ATOMIC | GFP_KERNEL | __GFP_NOLOCKDEP);
 		alloc_flags |= __GFP_NOWARN;
 		page = alloc_pages(alloc_flags, STACK_ALLOC_ORDER);
 		if (page)
