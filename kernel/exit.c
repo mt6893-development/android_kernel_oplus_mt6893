@@ -68,6 +68,7 @@
 #include <asm/unistd.h>
 #include <asm/pgtable.h>
 #include <asm/mmu_context.h>
+#include <soc/oplus/system/oppo_process.h>
 
 /*
  * The default value should be high enough to not crash a system that randomly
