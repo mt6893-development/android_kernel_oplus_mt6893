@@ -1276,8 +1276,6 @@ TRACE_EVENT(schedutil_uclamp_util,
 	TP_fast_assign(
 		__entry->cpu			= cpu;
 		__entry->util		= util;
-		__entry->util_min	= uclamp_value(cpu, UCLAMP_MIN);
-		__entry->util_max	= uclamp_value(cpu, UCLAMP_MAX);
 	),
 
 	TP_printk("cpu=%d util=%lu util_min=%u util_max=%u",

@@ -93,9 +93,9 @@ int __ext4_check_dir_entry(const char *function, unsigned int line,
 		error_msg = "rec_len is too small for name_len";
 	else if (unlikely(((char *) de - buf) + rlen > size))
 		error_msg = "directory entry overrun";
-	else if (unlikely(next_offset > size - ext4_dir_rec_len(1,
-						  has_csum ? NULL : dir) &&
-			  next_offset != size))
+	else if (unlikely(((char *) de - buf) + rlen >
+			  size - EXT4_DIR_REC_LEN(1) &&
+			  ((char *) de - buf) + rlen != size)) {
 		error_msg = "directory entry too close to block end";
 	}
 	else if (unlikely(le32_to_cpu(de->inode) >

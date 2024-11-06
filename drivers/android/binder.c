@@ -3570,7 +3570,7 @@ static void binder_transaction(struct binder_proc *proc,
 	e->target_handle = tr->target.handle;
 	e->data_size = tr->data_size;
 	e->offsets_size = tr->offsets_size;
-	strscpy(e->context_name, proc->context->name, BINDERFS_MAX_NAME);
+	e->context_name = proc->context->name;
 
 	if (reply) {
 		binder_inner_proc_lock(proc);
