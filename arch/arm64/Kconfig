@@ -1057,15 +1057,6 @@ config ARM64_SSBD
 
 	  If unsure, say Y.
 
-config MITIGATE_SPECTRE_BRANCH_HISTORY
-	bool "Mitigate Spectre style attacks against branch history" if EXPERT
-	default y
-	help
-	  Speculation attacks against some high-performance processors can
-	  make use of branch history to influence future speculation.
-	  When taking an exception from user-space, a sequence of branches
-	  or a firmware call overwrites the branch history.
-
 config ARM64_TAGGED_ADDR_ABI
 	bool "Enable the tagged user addresses syscall ABI"
 	default y
@@ -1077,7 +1068,8 @@ config ARM64_TAGGED_ADDR_ABI
 
 config COMPAT_VDSO
 	bool "Enable vDSO for 32-bit applications"
-	depends on !CPU_BIG_ENDIAN && "$(CROSS_COMPILE_COMPAT)" != ""
+	depends on !CPU_BIG_ENDIAN
+	depends on (CC_IS_CLANG && LD_IS_LLD) || "$(CROSS_COMPILE_COMPAT)" != ""
 	select GENERIC_COMPAT_VDSO
 	default y
 	help
