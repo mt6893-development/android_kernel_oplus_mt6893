@@ -18,7 +18,7 @@ if test -d ../../../.git -o -f ../../../.git &&
 	v[0-9]*)
 		git update-index -q --refresh
 		test -z "$(git diff-index --name-only HEAD --)" ||
-		VN="$VN-dirty" ;;
+		VN="$VN" ;;
 	esac
 then
 	VN=$(echo "$VN" | sed -e 's/-/./g');
