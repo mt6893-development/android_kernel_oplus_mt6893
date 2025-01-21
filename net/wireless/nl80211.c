@@ -3738,6 +3738,10 @@ static int nl80211_del_key(struct sk_buff *skb, struct genl_info *info)
 	    key.type != NL80211_KEYTYPE_GROUP)
 		return -EINVAL;
 
+       if (!cfg80211_valid_key_idx(rdev, key.idx,
+                                   key.type == NL80211_KEYTYPE_PAIRWISE))
+               return -EINVAL;
+
 	if (!cfg80211_valid_key_idx(rdev, key.idx,
 				    key.type == NL80211_KEYTYPE_PAIRWISE))
 		return -EINVAL;

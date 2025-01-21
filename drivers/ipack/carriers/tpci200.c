@@ -603,6 +603,12 @@ err_tpci200_install:
 err_cfg_regs:
 	pci_iounmap(tpci200->info->pdev, tpci200->info->cfg_regs);
 err_request_region:
+	/* tpci200->info->cfg_regs is unmapped in tpci200_uninstall */
+	tpci200->info->cfg_regs = NULL;
+out_err_install:
+	if (tpci200->info->cfg_regs)
+		iounmap(tpci200->info->cfg_regs);
+out_err_ioremap:
 	pci_release_region(pdev, TPCI200_CFG_MEM_BAR);
 err_tpci200_info:
 	kfree(tpci200->info);

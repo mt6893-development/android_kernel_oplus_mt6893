@@ -1835,6 +1835,7 @@ cdc_ncm_speed_change(struct usbnet *dev,
 	uint32_t rx_speed = le32_to_cpu(data->DLBitRRate);
 	uint32_t tx_speed = le32_to_cpu(data->ULBitRate);
 
+<<<<<<< HEAD
 	/* if the speed hasn't changed, don't report it.
 	 * RTL8156 shipped before 2021 sends notification about every 32ms.
 	 */
@@ -1843,6 +1844,17 @@ cdc_ncm_speed_change(struct usbnet *dev,
 
 	dev->rx_speed = rx_speed;
 	dev->tx_speed = tx_speed;
+=======
+       /* if the speed hasn't changed, don't report it.
+        * RTL8156 shipped before 2021 sends notification about every 32ms.
+        */
+       if (dev->rx_speed == rx_speed && dev->tx_speed == tx_speed)
+               return;
+
+       dev->rx_speed = rx_speed;
+       dev->tx_speed = tx_speed;
+
+>>>>>>> kernelsu-next-susfs
 
 	/*
 	 * Currently the USB-NET API does not support reporting the actual
@@ -1887,8 +1899,13 @@ static void cdc_ncm_status(struct usbnet *dev, struct urb *urb)
 		 * USB_CDC_NOTIFY_NETWORK_CONNECTION notification shall be
 		 * sent by device after USB_CDC_NOTIFY_SPEED_CHANGE.
 		 */
+<<<<<<< HEAD
 		if (netif_carrier_ok(dev->net) != !!event->wValue)
 			usbnet_link_change(dev, !!event->wValue, 0);
+=======
+               if (netif_carrier_ok(dev->net) != !!event->wValue)
+                       usbnet_link_change(dev, !!event->wValue, 0);
+>>>>>>> kernelsu-next-susfs
 		break;
 
 	case USB_CDC_NOTIFY_SPEED_CHANGE:

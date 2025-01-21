@@ -813,6 +813,10 @@ static void mkiss_close(struct tty_struct *tty)
 
 	ax->tty = NULL;
 
+<<<<<<< HEAD
+=======
+	unregister_netdev(ax->dev);
+>>>>>>> kernelsu-next-susfs
 	free_netdev(ax->dev);
 }
 

@@ -404,6 +404,18 @@ static struct file_system_type sock_fs_type = {
  *	This function uses GFP_KERNEL internally.
  */
 
+/**
+ *	sock_alloc_file - Bind a &socket to a &file
+ *	@sock: socket
+ *	@flags: file status flags
+ *	@dname: protocol name
+ *
+ *	Returns the &file bound with @sock, implicitly storing it
+ *	in sock->file. If dname is %NULL, sets to "".
+ *	On failure the return is a ERR pointer (see linux/err.h).
+ *	This function uses GFP_KERNEL internally.
+ */
+
 struct file *sock_alloc_file(struct socket *sock, int flags, const char *dname)
 {
 	struct file *file;

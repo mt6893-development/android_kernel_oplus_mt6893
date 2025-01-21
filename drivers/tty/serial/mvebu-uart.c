@@ -517,11 +517,23 @@ static void mvebu_uart_set_termios(struct uart_port *port,
 	max_baud = 230400;
 
 	baud = uart_get_baud_rate(port, termios, old, min_baud, max_baud);
+<<<<<<< HEAD
 	baud = mvebu_uart_baud_rate_set(port, baud);
 
 	/* In case baudrate cannot be changed, report previous old value */
 	if (baud == 0 && old)
 		baud = tty_termios_baud_rate(old);
+=======
+	if (mvebu_uart_baud_rate_set(port, baud)) {
+		/* No clock available, baudrate cannot be changed */
+		if (old)
+			baud = uart_get_baud_rate(port, old, NULL,
+						  min_baud, max_baud);
+	} else {
+		tty_termios_encode_baud_rate(termios, baud, baud);
+		uart_update_timeout(port, termios->c_cflag, baud);
+	}
+>>>>>>> kernelsu-next-susfs
 
 	/* Only the following flag changes are supported */
 	if (old) {
