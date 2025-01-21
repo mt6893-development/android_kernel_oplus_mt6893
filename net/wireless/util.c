@@ -240,43 +240,6 @@ bool cfg80211_valid_key_idx(struct cfg80211_registered_device *rdev,
 
 	if (pairwise)
 		max_key_idx = 3;
-	else if (cfg80211_igtk_cipher_supported(rdev))
-		max_key_idx = 5;
-	else
-		max_key_idx = 3;
-
-	if (key_idx < 0 || key_idx > max_key_idx)
-		return false;
-
-	return true;
-}
-
-static bool
-cfg80211_igtk_cipher_supported(struct cfg80211_registered_device *rdev)
-{
-	struct wiphy *wiphy = &rdev->wiphy;
-	int i;
-
-	for (i = 0; i < wiphy->n_cipher_suites; i++) {
-		switch (wiphy->cipher_suites[i]) {
-		case WLAN_CIPHER_SUITE_AES_CMAC:
-		case WLAN_CIPHER_SUITE_BIP_CMAC_256:
-		case WLAN_CIPHER_SUITE_BIP_GMAC_128:
-		case WLAN_CIPHER_SUITE_BIP_GMAC_256:
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool cfg80211_valid_key_idx(struct cfg80211_registered_device *rdev,
-			    int key_idx, bool pairwise)
-{
-	int max_key_idx;
-
-	if (pairwise)
-		max_key_idx = 3;
 	else if (wiphy_ext_feature_isset(&rdev->wiphy,
 				    NL80211_EXT_FEATURE_BEACON_PROTECTION))
 		max_key_idx = 7;
