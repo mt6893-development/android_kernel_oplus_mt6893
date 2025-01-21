@@ -607,7 +607,7 @@ dotraplinkage void notrace do_int3(struct pt_regs *regs, long error_code)
 		goto exit;
 #endif /* CONFIG_KGDB_LOW_LEVEL_TRAP */
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	if (kprobe_int3_handler(regs))
 		goto exit;
 #endif
@@ -774,7 +774,7 @@ dotraplinkage void do_debug(struct pt_regs *regs, long error_code)
 	/* Store the virtualized DR6 value */
 	tsk->thread.debugreg6 = dr6;
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	if (kprobe_debug_handler(regs))
 		goto exit;
 #endif

@@ -11,7 +11,7 @@
 
 #include <asm-generic/kprobes.h>
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 
 typedef u16 kprobe_opcode_t;
 

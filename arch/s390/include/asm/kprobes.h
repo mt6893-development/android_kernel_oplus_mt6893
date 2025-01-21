@@ -28,7 +28,7 @@ int probe_is_prohibited_opcode(u16 *insn);
 int probe_get_fixup_type(u16 *insn);
 int probe_is_insn_relative_long(u16 *insn);
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #include <linux/ptrace.h>
 #include <linux/percpu.h>
 #include <linux/sched/task_stack.h>

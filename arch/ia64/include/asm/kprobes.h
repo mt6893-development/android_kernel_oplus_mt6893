@@ -28,7 +28,7 @@
 
 #define BREAK_INST	(long)(__IA64_BREAK_KPROBE << 6)
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 
 #include <linux/types.h>
 #include <linux/ptrace.h>

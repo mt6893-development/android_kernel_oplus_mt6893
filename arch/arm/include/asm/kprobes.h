@@ -18,7 +18,7 @@
 
 #include <asm-generic/kprobes.h>
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #include <linux/types.h>
 #include <linux/ptrace.h>
 #include <linux/notifier.h>

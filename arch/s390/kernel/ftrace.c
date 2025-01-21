@@ -75,7 +75,7 @@ static inline void ftrace_generate_orig_insn(struct ftrace_insn *insn)
 
 static inline int is_kprobe_on_ftrace(struct ftrace_insn *insn)
 {
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	if (insn->opc == BREAKPOINT_INSTRUCTION)
 		return 1;
 #endif
@@ -84,7 +84,7 @@ static inline int is_kprobe_on_ftrace(struct ftrace_insn *insn)
 
 static inline void ftrace_generate_kprobe_nop_insn(struct ftrace_insn *insn)
 {
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	insn->opc = BREAKPOINT_INSTRUCTION;
 	insn->disp = KPROBE_ON_FTRACE_NOP;
 #endif
@@ -92,7 +92,7 @@ static inline void ftrace_generate_kprobe_nop_insn(struct ftrace_insn *insn)
 
 static inline void ftrace_generate_kprobe_call_insn(struct ftrace_insn *insn)
 {
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	insn->opc = BREAKPOINT_INSTRUCTION;
 	insn->disp = KPROBE_ON_FTRACE_CALL;
 #endif

@@ -3,7 +3,7 @@
 #define _ASM_GENERIC_KPROBES_H
 
 #if defined(__KERNEL__) && !defined(__ASSEMBLY__)
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 /*
  * Blacklist ganerating macro. Specify functions which is not probed
  * by using this macro.

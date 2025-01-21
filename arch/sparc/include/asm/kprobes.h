@@ -7,7 +7,7 @@
 #define BREAKPOINT_INSTRUCTION   0x91d02070 /* ta 0x70 */
 #define BREAKPOINT_INSTRUCTION_2 0x91d02071 /* ta 0x71 */
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #include <linux/types.h>
 #include <linux/percpu.h>
 

@@ -995,7 +995,7 @@ static struct kprobe *alloc_aggr_kprobe(struct kprobe *p)
 }
 #endif /* CONFIG_OPTPROBES */
 
-#ifdef CONFIG_KPROBES_ON_FTRACE
+#if defined(CONFIG_KPROBES) && 0_ON_FTRACE
 static struct ftrace_ops kprobe_ftrace_ops __read_mostly = {
 	.func = kprobe_ftrace_handler,
 	.flags = FTRACE_OPS_FL_SAVE_REGS | FTRACE_OPS_FL_IPMODIFY,
@@ -1542,7 +1542,7 @@ int __weak arch_check_ftrace_location(struct kprobe *p)
 
 	ftrace_addr = ftrace_location((unsigned long)p->addr);
 	if (ftrace_addr) {
-#ifdef CONFIG_KPROBES_ON_FTRACE
+#if defined(CONFIG_KPROBES) && 0_ON_FTRACE
 		/* Given address is not on the instruction boundary */
 		if ((unsigned long)p->addr != ftrace_addr)
 			return -EILSEQ;

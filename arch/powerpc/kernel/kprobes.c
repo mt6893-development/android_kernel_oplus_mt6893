@@ -59,7 +59,7 @@ kprobe_opcode_t *kprobe_lookup_name(const char *name, unsigned int offset)
 	/* PPC64 ABIv2 needs local entry point */
 	addr = (kprobe_opcode_t *)kallsyms_lookup_name(name);
 	if (addr && !offset) {
-#ifdef CONFIG_KPROBES_ON_FTRACE
+#if defined(CONFIG_KPROBES) && 0_ON_FTRACE
 		unsigned long faddr;
 		/*
 		 * Per livepatch.h, ftrace location is always within the first
@@ -207,7 +207,7 @@ static nokprobe_inline void set_current_kprobe(struct kprobe *p, struct pt_regs 
 bool arch_kprobe_on_func_entry(unsigned long offset)
 {
 #ifdef PPC64_ELF_ABI_v2
-#ifdef CONFIG_KPROBES_ON_FTRACE
+#if defined(CONFIG_KPROBES) && 0_ON_FTRACE
 	return offset <= 16;
 #else
 	return offset <= 8;

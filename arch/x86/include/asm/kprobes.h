@@ -26,7 +26,7 @@
 
 #define BREAKPOINT_INSTRUCTION	0xcc
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #include <linux/types.h>
 #include <linux/ptrace.h>
 #include <linux/percpu.h>

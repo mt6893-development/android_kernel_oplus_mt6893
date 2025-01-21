@@ -66,7 +66,7 @@ static inline const struct fault_info *esr_to_fault_info(unsigned int esr)
 	return fault_info + (esr & 63);
 }
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 static inline int notify_page_fault(struct pt_regs *regs, unsigned int esr)
 {
 	int ret = 0;

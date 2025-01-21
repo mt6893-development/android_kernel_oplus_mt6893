@@ -136,7 +136,7 @@
 #define BRANCH_PROFILE()
 #endif
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define KPROBE_BLACKLIST()	. = ALIGN(8);				      \
 				__start_kprobe_blacklist = .;		      \
 				KEEP(*(_kprobe_blacklist))		      \

@@ -30,7 +30,7 @@
 
 #ifdef CONFIG_MMU
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 static inline int notify_page_fault(struct pt_regs *regs, unsigned int fsr)
 {
 	int ret = 0;

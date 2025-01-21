@@ -31,7 +31,7 @@ enum probe_insn {
 	INSN_GOOD,
 };
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 enum probe_insn __kprobes
 arm_kprobe_decode_insn(kprobe_opcode_t *addr, struct arch_specific_insn *asi);
 #endif

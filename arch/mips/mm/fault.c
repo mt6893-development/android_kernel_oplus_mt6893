@@ -54,7 +54,7 @@ static void __kprobes __do_page_fault(struct pt_regs *regs, unsigned long write,
 	       field, regs->cp0_epc);
 #endif
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	/*
 	 * This is to notify the fault handler of the kprobes.
 	 */

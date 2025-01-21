@@ -311,7 +311,7 @@ static int kgdb_mips_notify(struct notifier_block *self, unsigned long cmd,
 	int trap = (regs->cp0_cause & 0x7c) >> 2;
 	mm_segment_t old_fs;
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	/*
 	 * Return immediately if the kprobes fault notifier has set
 	 * DIE_PAGE_FAULT.

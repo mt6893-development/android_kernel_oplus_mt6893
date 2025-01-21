@@ -181,7 +181,7 @@
 	ba,pt	%xcc, rtrap;						\
 	 stx	%l2, [%sp + PTREGS_OFF + PT_V9_TNPC];
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define KPROBES_TRAP(lvl) TRAP_IRQ(kprobe_trap, lvl)
 #else
 #define KPROBES_TRAP(lvl) TRAP_ARG(bad_trap, lvl)

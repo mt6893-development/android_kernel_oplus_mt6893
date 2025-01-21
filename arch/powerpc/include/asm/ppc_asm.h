@@ -262,7 +262,7 @@ n:
  * latter is for those that incdentially must be excluded from probing
  * and allows them to be linked at more optimal location within text.
  */
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define _ASM_NOKPROBE_SYMBOL(entry)			\
 	.pushsection "_kprobe_blacklist","aw";		\
 	PPC_LONG (entry) ;				\

@@ -55,7 +55,7 @@ static ssize_t lkdtm_debugfs_read(struct file *f, char __user *user_buf,
 static ssize_t direct_entry(struct file *f, const char __user *user_buf,
 			    size_t count, loff_t *off);
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 static int lkdtm_kprobe_handler(struct kprobe *kp, struct pt_regs *regs);
 static ssize_t lkdtm_debugfs_entry(struct file *f,
 				   const char __user *user_buf,
@@ -94,7 +94,7 @@ struct crashpoint {
 /* Define the possible places where we can trigger a crash point. */
 static struct crashpoint crashpoints[] = {
 	CRASHPOINT("DIRECT",		 NULL),
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	CRASHPOINT("INT_HARDWARE_ENTRY", "do_IRQ"),
 	CRASHPOINT("INT_HW_IRQ_EN",	 "handle_irq_event"),
 	CRASHPOINT("INT_TASKLET_ENTRY",	 "tasklet_action"),
@@ -266,7 +266,7 @@ static int lkdtm_register_cpoint(struct crashpoint *crashpoint,
 	return ret;
 }
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 /* Global crash counter and spinlock. */
 static int crash_count = DEFAULT_COUNT;
 static DEFINE_SPINLOCK(crash_count_lock);
@@ -437,7 +437,7 @@ static int __init lkdtm_module_init(void)
 		}
 	}
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	/* Set crash count. */
 	crash_count = cpoint_count;
 #endif

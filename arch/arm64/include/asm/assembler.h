@@ -514,7 +514,7 @@ USER(\label, ic	ivau, \tmp2)			// invalidate I line PoU
 /*
  * Annotate a function as being unsuitable for kprobes.
  */
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define NOKPROBE(x)				\
 	.pushsection "_kprobe_blacklist", "aw";	\
 	.quad	x;				\

@@ -247,7 +247,7 @@ ENDPROC(__und_fault)
 
 	.align	5
 __und_svc:
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	@ If a kprobe is about to simulate a "stmdb sp..." instruction,
 	@ it obviously needs free stack space which then will belong to
 	@ the saved context.

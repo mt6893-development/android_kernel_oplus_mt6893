@@ -49,7 +49,7 @@ static inline bool notify_page_fault(struct pt_regs *regs)
 {
 	bool ret = false;
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 	/* kprobe_running() needs smp_processor_id() */
 	if (!user_mode(regs)) {
 		preempt_disable();

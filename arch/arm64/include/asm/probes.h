@@ -26,7 +26,7 @@ struct arch_probe_insn {
 	/* restore address after step xol */
 	unsigned long restore;
 };
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 typedef u32 kprobe_opcode_t;
 struct arch_specific_insn {
 	struct arch_probe_insn api;

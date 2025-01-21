@@ -36,7 +36,7 @@
 #include <asm/probes.h>
 #include <asm/code-patching.h>
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define  __ARCH_WANT_KPROBES_INSN_SLOT
 
 struct pt_regs;

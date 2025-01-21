@@ -261,7 +261,7 @@ static int arch_build_bp_info(struct perf_event *bp,
 		 * allow kernel breakpoints at all.
 		 */
 		if (attr->bp_addr >= TASK_SIZE_MAX) {
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 			if (within_kprobe_blacklist(attr->bp_addr))
 				return -EINVAL;
 #else

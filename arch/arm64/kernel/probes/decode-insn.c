@@ -115,7 +115,7 @@ arm_probe_decode_insn(probe_opcode_t insn, struct arch_probe_insn *api)
 	return INSN_GOOD_NO_SLOT;
 }
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 static bool __kprobes
 is_probed_address_atomic(kprobe_opcode_t *scan_start, kprobe_opcode_t *scan_end)
 {

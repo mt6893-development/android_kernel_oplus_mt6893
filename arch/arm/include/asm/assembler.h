@@ -496,7 +496,7 @@ THUMB(	orr	\reg , \reg , #PSR_T_BIT	)
 #endif
 	.endm
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 #define _ASM_NOKPROBE(entry)				\
 	.pushsection "_kprobe_blacklist", "aw" ;	\
 	.balign 4 ;					\

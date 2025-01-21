@@ -42,7 +42,7 @@
 #include <linux/ftrace.h>
 #include <asm/kprobes.h>
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 
 /* kprobe_status settings */
 #define KPROBE_HIT_ACTIVE	0x00000001
@@ -190,7 +190,7 @@ struct kprobe_blacklist_entry {
 	unsigned long end_addr;
 };
 
-#ifdef CONFIG_KPROBES
+#if defined(CONFIG_KPROBES) && 0
 DECLARE_PER_CPU(struct kprobe *, current_kprobe);
 DECLARE_PER_CPU(struct kprobe_ctlblk, kprobe_ctlblk);
 
@@ -229,7 +229,7 @@ static inline void kretprobe_assert(struct kretprobe_instance *ri,
 	}
 }
 
-#ifdef CONFIG_KPROBES_SANITY_TEST
+#if defined(CONFIG_KPROBES) && 0_SANITY_TEST
 extern int init_test_probes(void);
 #else
 static inline int init_test_probes(void)
@@ -336,7 +336,7 @@ bool kprobe_disarmed(struct kprobe *p);
 #else
 static inline void wait_for_kprobe_optimizer(void) { }
 #endif /* CONFIG_OPTPROBES */
-#ifdef CONFIG_KPROBES_ON_FTRACE
+#if defined(CONFIG_KPROBES) && 0_ON_FTRACE
 extern void kprobe_ftrace_handler(unsigned long ip, unsigned long parent_ip,
 				  struct ftrace_ops *ops, struct pt_regs *regs);
 extern int arch_prepare_kprobe_ftrace(struct kprobe *p);
