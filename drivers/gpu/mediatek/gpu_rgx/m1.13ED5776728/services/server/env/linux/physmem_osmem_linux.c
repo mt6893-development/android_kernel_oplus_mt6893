@@ -3028,11 +3028,8 @@ PMRSysPhysAddrOSMem(PMR_IMPL_PRIVDATA pvPriv,
 		if (pbValid[uiIdx])
 		{
 			PVR_LOG_RETURN_IF_FALSE(IsOffsetValid(psOSPageArrayData, puiOffset[uiIdx]),
-<<<<<<< HEAD
+
 					"puiOffset out of range", PVRSRV_ERROR_OUT_OF_RANGE);
-=======
-			                        "puiOffset out of range", PVRSRV_ERROR_OUT_OF_RANGE);
->>>>>>> 3d6460fa4a48 ([ALPS07393104] GPU: sync code for 65)
 
 			psDevPAddr[uiIdx] = GetOffsetPA(psOSPageArrayData, puiOffset[uiIdx]);
 

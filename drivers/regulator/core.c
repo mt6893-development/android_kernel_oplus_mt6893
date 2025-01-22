@@ -1240,7 +1240,6 @@ static int set_machine_constraints(struct regulator_dev *rdev)
 		if (rdev->supply_name && !rdev->supply)
 			return -EPROBE_DEFER;
 
-<<<<<<< HEAD
 		/* If supplying regulator has already been enabled,
 		 * it's not intended to have use_count increment
 		 * when rdev is only boot-on.
@@ -1248,9 +1247,6 @@ static int set_machine_constraints(struct regulator_dev *rdev)
 		if (rdev->supply &&
 		    (rdev->constraints->always_on ||
 		     !regulator_is_enabled(rdev->supply))) {
-=======
-		if (rdev->supply) {
->>>>>>> kernelsu-next-susfs
 			ret = regulator_enable(rdev->supply);
 			if (ret < 0) {
 				_regulator_put(rdev->supply);

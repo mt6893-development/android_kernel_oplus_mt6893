@@ -48,10 +48,7 @@
 #define   PIO_COMPLETION_STATUS_CRS		2
 #define   PIO_COMPLETION_STATUS_CA		4
 #define   PIO_NON_POSTED_REQ			BIT(10)
-<<<<<<< HEAD
 #define   PIO_ERR_STATUS			BIT(11)
-=======
->>>>>>> kernelsu-next-susfs
 #define PIO_ADDR_LS				(PIO_BASE_ADDR + 0x8)
 #define PIO_ADDR_MS				(PIO_BASE_ADDR + 0xc)
 #define PIO_WR_DATA				(PIO_BASE_ADDR + 0x10)
@@ -246,11 +243,7 @@ enum {
 	(PCIE_CONF_BUS(bus) | PCIE_CONF_DEV(PCI_SLOT(devfn))	| \
 	 PCIE_CONF_FUNC(PCI_FUNC(devfn)) | PCIE_CONF_REG(where))
 
-<<<<<<< HEAD
 #define PIO_RETRY_CNT			750000 /* 1.5 s */
-=======
-#define PIO_RETRY_CNT			500
->>>>>>> kernelsu-next-susfs
 #define PIO_RETRY_DELAY			2 /* 2 us*/
 
 #define LINK_WAIT_MAX_RETRIES		10
