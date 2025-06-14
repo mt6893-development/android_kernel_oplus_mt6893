@@ -580,7 +580,8 @@ static void pvscsi_complete_request(struct pvscsi_adapter *adapter,
 			 * count to make upper layer aware of the actual amount
 			 * of data returned.
 			 */
-			scsi_set_resid(cmd, scsi_bufflen(cmd) - e->dataLen);
+			if (e->dataLen && (e->dataLen < scsi_bufflen(cmd)))
+				scsi_set_resid(cmd, scsi_bufflen(cmd) - e->dataLen);
 			cmd->result = (DID_OK << 16);
 			break;
 

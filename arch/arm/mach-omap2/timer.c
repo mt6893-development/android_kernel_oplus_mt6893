@@ -422,53 +422,6 @@ static void __init dmtimer_clkevt_init_common(struct dmtimer_clockevent *clkevt,
 		timer->rate);
 }
 
-static DEFINE_PER_CPU(struct dmtimer_clockevent, dmtimer_percpu_timer);
-
-static int omap_gptimer_starting_cpu(unsigned int cpu)
-{
-	struct dmtimer_clockevent *clkevt = per_cpu_ptr(&dmtimer_percpu_timer, cpu);
-	struct clock_event_device *dev = &clkevt->dev;
-	struct omap_dm_timer *timer = &clkevt->timer;
-
-	clockevents_config_and_register(dev, timer->rate, 3, ULONG_MAX);
-	irq_force_affinity(dev->irq, cpumask_of(cpu));
-
-	return 0;
-}
-
-static int __init dmtimer_percpu_quirk_init(void)
-{
-	struct dmtimer_clockevent *clkevt;
-	struct clock_event_device *dev;
-	struct device_node *arm_timer;
-	struct omap_dm_timer *timer;
-	int cpu = 0;
-
-	arm_timer = of_find_compatible_node(NULL, NULL, "arm,armv7-timer");
-	if (of_device_is_available(arm_timer)) {
-		pr_warn_once("ARM architected timer wrap issue i940 detected\n");
-		return 0;
-	}
-
-	for_each_possible_cpu(cpu) {
-		clkevt = per_cpu_ptr(&dmtimer_percpu_timer, cpu);
-		dev = &clkevt->dev;
-		timer = &clkevt->timer;
-
-		dmtimer_clkevt_init_common(clkevt, 0, "timer_sys_ck",
-					   CLOCK_EVT_FEAT_ONESHOT,
-					   cpumask_of(cpu),
-					   "assigned-clock-parents",
-					   500, "percpu timer");
-	}
-
-	cpuhp_setup_state(CPUHP_AP_OMAP_DM_TIMER_STARTING,
-			  "clockevents/omap/gptimer:starting",
-			  omap_gptimer_starting_cpu, NULL);
-
-	return 0;
-}
-
 /* Clocksource code */
 static struct omap_dm_timer clksrc;
 static bool use_gptimer_clksrc __initdata;
@@ -613,9 +566,6 @@ static void __init __omap_sync32k_timer_init(int clkev_nr, const char *clkev_src
 					3, /* Timer internal resynch latency */
 					0xffffffff);
 
-	if (soc_is_dra7xx())
-		dmtimer_percpu_quirk_init();
-
 	/* Enable the use of clocksource="gp_timer" kernel parameter */
 	if (use_gptimer_clksrc || gptimer)
 		omap2_gptimer_clocksource_init(clksrc_nr, clksrc_src,
@@ -701,6 +651,7 @@ static void __init realtime_counter_init(void)
 	}
 
 	rate = clk_get_rate(sys_clk);
+	clk_put(sys_clk);
 
 	if (soc_is_dra7xx()) {
 		/*

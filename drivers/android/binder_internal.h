@@ -140,7 +140,7 @@ struct binder_transaction_log_entry {
 	int return_error_line;
 	uint32_t return_error;
 	uint32_t return_error_param;
-	const char *context_name;
+        const char *context_name;
 #ifdef CONFIG_ANDROID_BINDER_USER_TRACKING
 	struct timespec timestamp;
 	struct timeval tv;
