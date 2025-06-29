@@ -2141,7 +2141,7 @@ static kal_uint16 gain2reg(const kal_uint16 gain)
      kal_uint16 reg_gain = 0x0;
 
     reg_gain = 4096 - (1024*64)/gain;
-    if (imgsensor.current_scenario_id == IMGSENSOR_MODE_CUSTOM3) {
+    if ((int)imgsensor.current_scenario_id == (int)IMGSENSOR_MODE_CUSTOM3) {
         reg_gain = 1024 - (1024*64)/gain;
     }
     return (kal_uint16) reg_gain;
@@ -2167,7 +2167,7 @@ static kal_uint16 set_gain(kal_uint16 gain)
 {
     kal_uint16 reg_gain, max_gain = imgsensor_info.max_gain;
 
-    if (imgsensor.current_scenario_id == IMGSENSOR_MODE_CUSTOM3) {
+    if ((int)imgsensor.current_scenario_id == (int)IMGSENSOR_MODE_CUSTOM3) {
         max_gain = 16 * BASEGAIN;
     }
 
