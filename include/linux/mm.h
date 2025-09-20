@@ -1515,12 +1515,10 @@ extern vm_fault_t handle_mm_fault(struct vm_area_struct *vma,
 extern int sysctl_speculative_page_fault;
 extern vm_fault_t __handle_speculative_fault(struct mm_struct *mm,
 				      unsigned long address,
-				      unsigned int flags,
-				      unsigned long access_vm);
+				      unsigned int flags);
 static inline vm_fault_t handle_speculative_fault(struct mm_struct *mm,
 					   unsigned long address,
-					   unsigned int flags,
-					   unsigned long access_vm)
+					   unsigned int flags)
 {
 	if (unlikely(!sysctl_speculative_page_fault))
 		return VM_FAULT_RETRY;
@@ -1529,13 +1527,12 @@ static inline vm_fault_t handle_speculative_fault(struct mm_struct *mm,
 	 */
 	if (!(flags & FAULT_FLAG_USER) || atomic_read(&mm->mm_users) == 1)
 		return VM_FAULT_RETRY;
-	return __handle_speculative_fault(mm, address, flags, access_vm);
+	return __handle_speculative_fault(mm, address, flags);
 }
 #else
 static inline vm_fault_t handle_speculative_fault(struct mm_struct *mm,
 					   unsigned long address,
-					   unsigned int flags,
-					   unsigned long access_vm)
+					   unsigned int flags)
 {
 	return VM_FAULT_RETRY;
 }
