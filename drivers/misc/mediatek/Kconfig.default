@@ -129,10 +129,14 @@ config ANDROID_DEFAULT_SETTING
 	select MULTIUSER
 	select NAMESPACES
 	select NET
+	select NET_ACT_POLICE
+	select NET_ACT_BPF
 	select NET_CLS_ACT
 	select NET_CLS_BPF
 	select NET_CLS_U32
+	select NET_SCH_TBF
 	select NETDEVICES
+	select NET_CLS_MATCHALL
 	select NET_EMATCH
 	select NET_EMATCH_U32
 	select NETFILTER
