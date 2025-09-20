@@ -3315,8 +3315,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
 				lru_cache_add_anon(page);
 				swap_readpage(page, true);
 			}
-		} else if (swap_use_vma_readmore() &&
-				vmf->flags & FAULT_FLAG_SPECULATIVE) {
+		} else if (vmf->flags & FAULT_FLAG_SPECULATIVE) {
 			/*
 			 * Don't try readahead during a speculative page fault
 			 * as the VMA's boundaries may change in our back.
