@@ -477,13 +477,6 @@ struct vm_operations_struct {
 	struct page *(*find_special_page)(struct vm_area_struct *vma,
 					  unsigned long addr);
 
-#ifdef CONFIG_SPECULATIVE_PAGE_FAULT
-	/*
-	 * When user indicates its own fault handler, it needs to set this
-	 * field as true if it is suitable for speculative page fault.
-	 */
-	bool suitable_for_spf;
-#endif
 	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
 	ANDROID_KABI_RESERVE(3);
