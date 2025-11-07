@@ -20,6 +20,7 @@
 #ifdef CONFIG_OPLUS_OFP_V2
 /* add for ofp */
 #include "oplus_display_onscreenfingerprint.h"
+#include "oplus_display_private_api_ext.h"
 #endif
 
 /*
@@ -86,6 +87,7 @@ extern int oplus_mtk_drm_setcabc(struct drm_crtc *crtc, unsigned int hbm_mode);
 extern int mtkfb_set_aod_backlight_level(unsigned int level);
 extern void ddic_dsi_send_cmd(unsigned int cmd_num, char val[20]);
 extern void mtk_read_ddic_v2(u8 ddic_reg, int ret_num, char ret_val[10]);
+int fp_state[3];
 
 #ifdef OPLUS_BUG_STABILITY
 static BLOCKING_NOTIFIER_HEAD(lcdinfo_notifiers);
@@ -141,6 +143,13 @@ bool oplus_mtk_drm_get_hbm_state(void)
 	return hbm_en;
 }
 #endif
+
+
+static ssize_t oplus_display_get_fp_state(struct  kobject *kobj,
+                                struct kobj_attribute *attr, char *buf)
+{
+    return sprintf(buf, "%d,%d,%d\n", fp_state[0], fp_state[1], fp_state[2]);
+}
 
 static ssize_t oplus_display_get_brightness(struct kobject *kobj,
                                 struct kobj_attribute *attr, char *buf)
@@ -1551,6 +1560,7 @@ static struct kobj_attribute dev_attr_esd = __ATTR(esd, S_IRUGO|S_IWUSR, oplus_d
 static struct kobj_attribute dev_attr_sau_closebl_node = __ATTR(sau_closebl_node, S_IRUGO|S_IWUSR, silence_show, silence_store);
 static struct kobj_attribute dev_attr_aod_area = __ATTR(aod_area, S_IRUGO|S_IWUSR, NULL, oplus_display_set_aod_area);
 static struct kobj_attribute dev_attr_write_panel_reg = __ATTR(write_panel_reg, S_IRUGO|S_IWUSR, oplus_display_get_panel_reg, oplus_display_set_panel_reg);
+static struct kobj_attribute dev_attr_fp_state = __ATTR(fp_state, S_IRUGO|S_IWUSR, oplus_display_get_fp_state, NULL);
 #ifdef CONFIG_OPLUS_CRC_CHECK_SUPPORT
 static struct kobj_attribute dev_attr_crc_check = __ATTR(crc_check, S_IRUGO|S_IWUSR, oplus_display_get_crc_check, oplus_display_set_crc_check);
 #endif
@@ -1579,6 +1589,7 @@ static struct attribute *oplus_display_attrs[] = {
 	&dev_attr_aod_light_mode_set.attr,
 	&dev_attr_aod_area.attr,
 	&dev_attr_write_panel_reg.attr,
+	&dev_attr_fp_state.attr,
 #ifdef CONFIG_OPLUS_OFP_V2
 	&dev_attr_dsi_cmd_log_switch.attr,
 #endif
@@ -1592,6 +1603,13 @@ static struct attribute_group oplus_display_attr_group = {
 	.attrs = oplus_display_attrs,
 };
 
+void oplus_opticalfp_irq_handler(int arr[3]) {
+	fp_state[0] = arr[0];
+	fp_state[1] = arr[1];
+	fp_state[2] = arr[2];
+	sysfs_notify(kernel_kobj, "oplus_display", dev_attr_fp_state.attr.name);
+}
+
 static int __init oplus_display_private_api_init(void)
 {
 	int retval = 0;
@@ -1602,10 +1620,12 @@ static int __init oplus_display_private_api_init(void)
 
 	/* Create the files associated with this kobject */
 	retval = sysfs_create_group(oplus_display_kobj, &oplus_display_attr_group);
-	if (retval)
+	if (retval) {
 		kobject_put(oplus_display_kobj);
+		return retval;
+	}
 
-	return retval;
+	return 0;
 }
 
 static void __exit oplus_display_private_api_exit(void)

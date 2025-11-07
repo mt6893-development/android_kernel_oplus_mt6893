@@ -58,6 +58,7 @@
 #include "../include/fingerprint_event.h"
 
 /* Uncomment if DeviceTree should be used */
+#include "../../../../gpu/drm/oplus/oplus_display_private_api_ext.h"
 
 #define DEBUG
 #define NETLINK_TEST 25
@@ -884,6 +885,10 @@ static int gf_opticalfp_irq_handler(struct fp_underscreen_info *tp_info)
 {
     char msg = 0;
     fp_tpinfo = *tp_info;
+    int data[3] = {tp_info->x, tp_info->y, tp_info->touch_state};
+    oplus_opticalfp_irq_handler(data);
+    tp_info->x, tp_info->y, tp_info->touch_state;
+
     if(tp_info->touch_state== lasttouchmode){
         pr_info("%s touch_state is lasttouchmode \n", __func__);
         return IRQ_HANDLED;
