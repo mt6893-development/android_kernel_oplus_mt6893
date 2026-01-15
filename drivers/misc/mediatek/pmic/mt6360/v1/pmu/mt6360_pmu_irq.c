@@ -10,7 +10,7 @@
 #include <linux/pm_runtime.h>
 #include <linux/irq.h>
 #include "../inc/mt6360_pmu.h"
-#include "../../../../../power/oplus/oplus_chg_track.h"
+#include "../../../../../../power/oplus/oplus_chg_track.h"
 #ifdef OPLUS_FEATURE_CHG_BASIC
 extern bool mt6360_get_vbus_status(void);
 extern int mt6360_chg_enable(bool en);

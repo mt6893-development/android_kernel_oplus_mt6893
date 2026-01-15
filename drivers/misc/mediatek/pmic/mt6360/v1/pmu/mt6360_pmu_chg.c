@@ -31,7 +31,7 @@
 #include <mt-plat/upmu_common.h>
 #include <mt-plat/mtk_boot.h>
 #ifdef OPLUS_FEATURE_CHG_BASIC
-#include "../../../../../power/oplus/oplus_chg_track.h"
+#include "../../../../../../power/oplus/oplus_chg_track.h"
 #include <linux/delay.h>
 #endif
 
