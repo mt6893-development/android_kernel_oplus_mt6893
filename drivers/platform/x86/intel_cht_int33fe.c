@@ -175,6 +175,7 @@ static int cht_int33fe_probe(struct platform_device *pdev)
 			return -EPROBE_DEFER; /* Wait for i2c-adapter to load */
 	}
 
+	data->connections[0].fwnode = NULL;
 	data->connections[0].endpoint[0] = "port0";
 	data->connections[0].endpoint[1] = "i2c-pi3usb30532-switch";
 	data->connections[0].id = "orientation-switch";
