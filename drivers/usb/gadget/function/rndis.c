@@ -660,14 +660,13 @@ static int rndis_set_response(struct rndis_params *params,
 	BufLength = le32_to_cpu(buf->InformationBufferLength);
 	BufOffset = le32_to_cpu(buf->InformationBufferOffset);
 	if ((BufLength > RNDIS_MAX_TOTAL_SIZE) ||
-		(BufOffset + 8 >= RNDIS_MAX_TOTAL_SIZE))
-			return -EINVAL;
+	    (BufOffset > RNDIS_MAX_TOTAL_SIZE) ||
+	    (BufOffset + 8 >= RNDIS_MAX_TOTAL_SIZE))
+		    return -EINVAL;
 
 	r = rndis_add_response(params, sizeof(rndis_set_cmplt_type));
-	if (!r) {
-		pr_info("%s, rndis_add_response return NULL\n", __func__);
+	if (!r)
 		return -ENOMEM;
-	}
 	resp = (rndis_set_cmplt_type *)r->buf;
 
 #ifdef	VERBOSE_DEBUG
@@ -970,7 +969,8 @@ struct rndis_params *rndis_register(void (*resp_avail)(void *v), void *v)
 	params->resp_avail = resp_avail;
 	params->v = v;
 	params->max_pkt_per_xfer = 1;
-	INIT_LIST_HEAD(&(params->resp_queue));
+	INIT_LIST_HEAD(&params->resp_queue);
+	spin_lock_init(&params->resp_lock);
 	pr_debug("%s: configNr = %d\n", __func__, i);
 
 	return params;

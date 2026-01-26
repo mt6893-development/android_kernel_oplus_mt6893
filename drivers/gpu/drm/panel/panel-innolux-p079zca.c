@@ -262,6 +262,7 @@ static void innolux_panel_del(struct innolux_panel *innolux)
 
 static int innolux_panel_probe(struct mipi_dsi_device *dsi)
 {
+	const struct panel_desc *desc;
 	struct innolux_panel *innolux;
 	int err;
 

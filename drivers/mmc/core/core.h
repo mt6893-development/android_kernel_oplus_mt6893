@@ -35,7 +35,7 @@ struct mmc_bus_ops {
 	int (*hw_reset)(struct mmc_host *);
 	int (*sw_reset)(struct mmc_host *);
 	bool (*cache_enabled)(struct mmc_host *);
-	
+
 #ifdef CONFIG_MMC_PASSWORDS
 	int (*sysfs_add)(struct mmc_host *, struct mmc_card *card);
 	void (*sysfs_remove)(struct mmc_host *, struct mmc_card *card);
