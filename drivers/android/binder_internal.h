@@ -21,6 +21,14 @@
 #include "binder_alloc.h"
 #endif
 
+#ifdef CONFIG_ANDROID_BINDERFS
+#include <linux/android/binderfs.h>
+#endif
+
+#ifndef BINDERFS_MAX_NAME
+#define BINDERFS_MAX_NAME 255
+#endif
+
 struct binder_context {
 	struct binder_node *binder_context_mgr_node;
 	struct mutex context_mgr_node_lock;
