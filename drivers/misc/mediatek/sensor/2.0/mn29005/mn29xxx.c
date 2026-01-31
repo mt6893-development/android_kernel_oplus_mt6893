@@ -756,7 +756,7 @@ static int mn29xxx_sample(struct hf_device *hfdev)
 	mn29_sensor.als.als_first_flag = false;
 	///APS_LOGE("before cal mn29xxx_read_als: als_value=%d,als_factor= %d\n", value,mn29_sensor.als.als_factor);
 
-	current_time = ktime_get_boot_ns();
+	current_time = ktime_get_boottime_ns();
 	if (atomic_read(&driver_dev->raw_enable)) {
 		memset(&event, 0, sizeof(struct hf_manager_event));
 		event.timestamp = current_time;
@@ -869,7 +869,7 @@ static int mn29xxx_flush(struct hf_device *hfdev, int sensor_type)
 	client = hf_device_get_private_data(hfdev);
 	driver_dev = i2c_get_clientdata(client);
 	manager = driver_dev->hf_dev.manager;
-	current_time = ktime_get_boot_ns();
+	current_time = ktime_get_boottime_ns();
 
 	memset(&event, 0, sizeof(struct hf_manager_event));
 	event.timestamp = current_time;
