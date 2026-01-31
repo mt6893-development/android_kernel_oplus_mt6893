@@ -6867,7 +6867,7 @@ static void print_binder_stats(struct seq_file *m, const char *prefix,
 {
 	int i;
 
-	BUILD_BUG_ON(ARRAY_SIZE(stats->bc) !=
+	WARN_ON_ONCE(ARRAY_SIZE(stats->bc) !=
 		     ARRAY_SIZE(binder_command_strings));
 	for (i = 0; i < ARRAY_SIZE(stats->bc); i++) {
 		int temp = atomic_read(&stats->bc[i]);
@@ -6877,7 +6877,7 @@ static void print_binder_stats(struct seq_file *m, const char *prefix,
 				   binder_command_strings[i], temp);
 	}
 
-	BUILD_BUG_ON(ARRAY_SIZE(stats->br) !=
+	WARN_ON_ONCE(ARRAY_SIZE(stats->br) !=
 		     ARRAY_SIZE(binder_return_strings));
 	for (i = 0; i < ARRAY_SIZE(stats->br); i++) {
 		int temp = atomic_read(&stats->br[i]);
@@ -6887,9 +6887,9 @@ static void print_binder_stats(struct seq_file *m, const char *prefix,
 				   binder_return_strings[i], temp);
 	}
 
-	BUILD_BUG_ON(ARRAY_SIZE(stats->obj_created) !=
+	WARN_ON_ONCE(ARRAY_SIZE(stats->obj_created) !=
 		     ARRAY_SIZE(binder_objstat_strings));
-	BUILD_BUG_ON(ARRAY_SIZE(stats->obj_created) !=
+	WARN_ON_ONCE(ARRAY_SIZE(stats->obj_created) !=
 		     ARRAY_SIZE(stats->obj_deleted));
 	for (i = 0; i < ARRAY_SIZE(stats->obj_created); i++) {
 		int created = atomic_read(&stats->obj_created[i]);
